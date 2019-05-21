@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from '../auth.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-sign-up-form',
@@ -7,9 +9,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignUpFormComponent implements OnInit {
 
-  constructor() { }
+  constructor(private fb: FormBuilder, private authService: AuthService) { }
+  signUpForm: FormGroup;
+
+  static confirmPass(group: FormGroup) {
+    if (group.value.pass === group.value.doublePass) {
+      return null;
+    }
+    return {confirmPass: 'Passwords are different'};
+  }
 
   ngOnInit() {
+    this.signUpForm = this.fb.group({
+      login: ['', [Validators.required]],
+      passwords: this.fb.group({
+        pass: ['', Validators.required],
+        doublePass: ['', Validators.required]
+      }, {validator: SignUpFormComponent.confirmPass})
+    });
+  }
+
+  hasConfirmPassError() {
+    const isDirty = this.signUpForm.controls.passwords.dirty;
+    const hasError = this.signUpForm.controls.passwords.hasError('confirmPass');
+    return  isDirty && hasError;
+  }
+
+  onSubmit() {
+    const {login, passwords: {pass, doublePass}} = this.signUpForm.value;
   }
 
 }
