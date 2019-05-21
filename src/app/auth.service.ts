@@ -17,6 +17,14 @@ export class AuthService {
     return 'Sasha';
   }
 
+  toggle() {
+    this.isSignInForm = !this.isSignInForm;
+  }
+
+  getIsSignInForm() {
+    return this.isSignInForm;
+  }
+
   openForm() {
     this.dialogRef = this.dialogService.open(SignFormComponent);
   }
