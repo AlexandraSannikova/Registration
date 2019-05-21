@@ -17,11 +17,11 @@ export class HeaderComponent implements OnInit {
     return this.service.isAuth;
   }
   onSignInClick() {
-
+    this.service.openSignInDialog();
   }
 
   onSignUpClick() {
-
+    this.service.openSignUpDialog();
   }
 
   logout() {

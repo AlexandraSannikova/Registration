@@ -3,14 +3,16 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {NbThemeModule, NbLayoutModule, NbButtonModule} from '@nebular/theme';
+import {NbThemeModule, NbLayoutModule, NbButtonModule, NbCardModule, NbDialogModule, NbDialogService} from '@nebular/theme';
 import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './header/header.component';
+import { SignFormComponent } from './sign-form/sign-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    SignFormComponent
   ],
   imports: [
     BrowserModule,
@@ -19,10 +21,14 @@ import { HeaderComponent } from './header/header.component';
     NbLayoutModule,
     AppRoutingModule,
     NbLayoutModule,
-    NbButtonModule
-
+    NbButtonModule,
+    NbCardModule,
+    NbDialogModule.forRoot(),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [NbDialogService],
+  bootstrap: [AppComponent],
+  entryComponents: [
+    SignFormComponent
+  ]
 })
 export class AppModule { }
