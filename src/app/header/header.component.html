@@ -1,0 +1,20 @@
+<div class="header-container">
+  <div
+    *ngIf="isSignedIn; then signedButtons; else unsignedButtons">
+  </div>
+
+
+  <ng-template #unsignedButtons>
+    <button class="sign-in header-btn" nbButton outline status="info" size="xsmall" (click)="onSignInClick()">Вход
+    </button>
+    <button class="sign-up header-btn" nbButton status="info" size="xsmall" (click)="onSignUpClick()">Регистрация
+    </button>
+  </ng-template>
+
+  <ng-template #signedButtons>
+    <div class="signed-buttons">
+      <a class="profile">{{service.getUserName()}}</a>
+      <a tabindex="0" class="exit" (click)="logout()">Выход</a>
+    </div>
+  </ng-template>
+</div>
