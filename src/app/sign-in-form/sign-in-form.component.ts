@@ -30,6 +30,7 @@ export class SignInFormComponent implements OnInit {
 
   onSubmit() {
     const {login, pass} = this.signInForm.value;
+    this.authService.login(login, pass);
   }
 
 }

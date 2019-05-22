@@ -11,6 +11,8 @@ import { SignInFormComponent } from './sign-in-form/sign-in-form.component';
 import { SignUpFormComponent } from './sign-up-form/sign-up-form.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { SwitcherForFormComponent } from './switcher-for-form/switcher-for-form.component';
+import { MainComponent } from './main/main.component';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -19,11 +21,11 @@ import { SwitcherForFormComponent } from './switcher-for-form/switcher-for-form.
     SignFormComponent,
     SignInFormComponent,
     SignUpFormComponent,
-    SwitcherForFormComponent
+    SwitcherForFormComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
-    NoopAnimationsModule,
     NbThemeModule.forRoot(),
     NbLayoutModule,
     AppRoutingModule,
@@ -33,13 +35,15 @@ import { SwitcherForFormComponent } from './switcher-for-form/switcher-for-form.
     NbDialogModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    NbInputModule
+    NbInputModule,
+    RouterModule
   ],
   providers: [NbDialogService],
   bootstrap: [AppComponent],
   entryComponents: [
     SignFormComponent,
-    SignInFormComponent
+    SignInFormComponent,
+    SignUpFormComponent
   ]
 })
 export class AppModule { }

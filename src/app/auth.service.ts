@@ -9,12 +9,15 @@ export class AuthService {
 
   constructor(private dialogService: NbDialogService) { }
 
-  isAuth = false;
+  // isAuth = false;
   private isSignInForm: boolean;
   dialogRef: NbDialogRef<SignFormComponent>;
+  get isAuth(): boolean {
+    return !!localStorage.getItem('isAuth');
+  }
 
   getUserName(): string {
-    return 'Sasha';
+    return localStorage.getItem('userName');
   }
 
   toggle() {
@@ -38,4 +41,27 @@ export class AuthService {
     this.isSignInForm = false;
     this.openForm();
   }
+
+  closeForm() {
+    this.dialogRef.close();
+  }
+
+  register(login: string, password: string, confirmPassword: string) {
+    localStorage.setItem('isAuth', 'true');
+    localStorage.setItem('userName', login);
+    this.closeForm();
+  }
+
+  logout() {
+    localStorage.removeItem('isAuth');
+    localStorage.removeItem('userName');
+  }
+
+  login(login: string, password: string ) {
+    localStorage.setItem('isAuth', 'true');
+    localStorage.setItem('userName', login);
+    this.closeForm();
+  }
+
+
 }
