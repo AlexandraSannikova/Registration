@@ -1,5 +1,28 @@
 <nb-card>
   <nb-card-body>
-
+    <table *ngIf="auth.isAuth; else notAuth">
+      <tr>
+        <th>ID</th>
+        <th>User</th>
+        <th>Password</th>
+        <th></th>
+      </tr>
+      <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{user.id}}</td>
+        <td>{{user.login}}</td>
+        <ng-container *ngIf="isLoggedUser(user); else hidePass">
+          <td>{{user.pass}}</td>
+        </ng-container>
+      </tr>
+    </table>
   </nb-card-body>
 </nb-card>
+
+<ng-template #hidePass>
+  <td>***</td>
+</ng-template>
+
+<ng-template #notAuth>
+  Авторизуйтесь, чтобы увидеть таблицу
+</ng-template>

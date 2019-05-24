@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
   get isSignedIn() {
     return this.service.isAuth;
   }
+
   onSignInClick() {
     this.service.openSignInDialog();
   }

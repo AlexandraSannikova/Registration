@@ -29,8 +29,13 @@ export class SignInFormComponent implements OnInit {
   }
 
   onSubmit() {
+    // this.errorAuth = false;
     const {login, pass} = this.signInForm.value;
-    this.authService.login(login, pass);
+    try {
+      this.authService.login(login, pass);
+    } catch (e) {
+      this.errorAuth = true;
+    }
   }
 
 }

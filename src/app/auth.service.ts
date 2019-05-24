@@ -12,12 +12,19 @@ export class AuthService {
   // isAuth = false;
   private isSignInForm: boolean;
   dialogRef: NbDialogRef<SignFormComponent>;
+
+
   get isAuth(): boolean {
     return !!localStorage.getItem('isAuth');
   }
 
-  getUserName(): string {
-    return localStorage.getItem('userName');
+   get getUsers(): any {
+    return JSON.parse(localStorage.getItem('users') || '[]');
+  }
+
+  get getUserName(): string {
+    const name = localStorage.getItem('userName');
+    return name;
   }
 
   toggle() {
@@ -47,10 +54,24 @@ export class AuthService {
   }
 
   register(login: string, password: string, confirmPassword: string) {
+    let users = this.getUsers;
+    const len = Object.keys(users).length;
+
+    users.push({id: len, login, pass: password});
+
+    localStorage.setItem('users', JSON.stringify(users));
     localStorage.setItem('isAuth', 'true');
     localStorage.setItem('userName', login);
     this.closeForm();
   }
+
+  findUser(users: any, login: string, pass: string) {
+    return users.find(x => {
+      return x.login === login && x.pass === pass;
+    });
+  }
+
+
 
   logout() {
     localStorage.removeItem('isAuth');
@@ -58,6 +79,11 @@ export class AuthService {
   }
 
   login(login: string, password: string ) {
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const user = this.findUser(users, login, password);
+    if (!!!user) {
+      throw new Error('неверные данные');
+    }
     localStorage.setItem('isAuth', 'true');
     localStorage.setItem('userName', login);
     this.closeForm();
