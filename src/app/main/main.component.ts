@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../auth.service';
-
-
+import {FormControl} from '@angular/forms';
+import {ForShowTable} from '../models/for-show-table.enum';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -9,17 +10,22 @@ import {AuthService} from '../auth.service';
   styleUrls: ['./main.component.less']
 })
 export class MainComponent implements OnInit {
+  search = new FormControl();
+  constructor(private auth: AuthService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
-  constructor(private auth: AuthService) { }
-
-  ngOnInit() {
-    // this.users = this.auth.getUsers;
-    // this.curUser = this.auth.getUserName;
-
-  }
+  ngOnInit() {}
 
   get users(): any {
-    return this.auth.getUsers;
+    const content: ForShowTable = this.activatedRoute.snapshot.data.content;
+
+    switch (content) {
+      case ForShowTable.MAIN:
+        return this.auth.getUsers;
+
+      case ForShowTable.SEARCH:
+        const query = this.activatedRoute.snapshot.queryParams.q;
+        return this.auth.searchUsers(query);
+    }
   }
 
   get user(): string {
@@ -27,9 +33,10 @@ export class MainComponent implements OnInit {
   }
 
   isLoggedUser(user: any): boolean {
-    return  this.user === user.login;
+    return  this.user === user.login ;
   }
 
-
-
+  handleSearch() {
+    this.router.navigate(['search'], {queryParams: {q: this.search.value}});
+  }
 }

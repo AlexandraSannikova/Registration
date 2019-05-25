@@ -1,21 +1,31 @@
 <nb-card>
   <nb-card-body>
-    <table *ngIf="auth.isAuth; else notAuth">
+    <ng-container *ngIf="auth.isAuth; else notAuth">
+    <div class="search">
+      <input (keyup.enter)="handleSearch()" [formControl]="search" class="search" fieldSize="small" nbInput
+             placeholder="Поиск" status="info" type="text">
+    </div>
+    <table>
       <tr>
         <th>ID</th>
-        <th>User</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Login</th>
         <th>Password</th>
         <th></th>
       </tr>
       <tbody>
       <tr *ngFor="let user of users">
         <td>{{user.id}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
         <td>{{user.login}}</td>
         <ng-container *ngIf="isLoggedUser(user); else hidePass">
           <td>{{user.pass}}</td>
         </ng-container>
       </tr>
     </table>
+    </ng-container>
   </nb-card-body>
 </nb-card>
 

@@ -21,7 +21,9 @@ export class SignUpFormComponent implements OnInit {
 
   ngOnInit() {
     this.signUpForm = this.fb.group({
+      name: ['', [Validators.required]],
       login: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       passwords: this.fb.group({
         pass: ['', Validators.required],
         doublePass: ['', Validators.required]
@@ -35,9 +37,15 @@ export class SignUpFormComponent implements OnInit {
     return  isDirty && hasError;
   }
 
+  hasMailError() {
+    const isDirty = this.signUpForm.controls.email.dirty;
+    const hasError = this.signUpForm.controls.email.invalid;
+    return hasError && isDirty;
+  }
+
   onSubmit() {
-    const {login, passwords: {pass, doublePass}} = this.signUpForm.value;
-    this.authService.register(login, pass, doublePass);
+    const {name, login, email, passwords: {pass, doublePass}} = this.signUpForm.value;
+    this.authService.register(name, login, email, pass, doublePass);
   }
 
 }

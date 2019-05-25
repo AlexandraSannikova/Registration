@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../auth.service';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +9,8 @@ import {AuthService} from '../auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private service: AuthService) { }
+  constructor(private service: AuthService) {
+  }
 
   ngOnInit() {
   }
@@ -28,8 +30,4 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.service.logout();
   }
-
-
-
-
 }

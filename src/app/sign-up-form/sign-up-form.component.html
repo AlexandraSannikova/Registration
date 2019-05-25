@@ -1,8 +1,17 @@
 <div class="container">
   <h1>Регистрация</h1>
   <form [formGroup]="signUpForm" (submit)="onSubmit()">
+    <input formControlName="name" fullWidth status="info" fieldSize="medium" type="text" nbInput
+           placeholder="Имя">
     <input class="login" formControlName="login" fullWidth status="info" fieldSize="medium" type="text" nbInput
            placeholder="Логин">
+
+    <input formControlName="email" fullWidth status="info" fieldSize="medium" type="text" nbInput
+           placeholder="Email">
+    <div class="error" *ngIf="hasMailError()">
+      Неверный email
+      <br>
+    </div>
 
     <div formGroupName="passwords">
       <input type="password" class="pass" formControlName="pass" fullWidth status="info" fieldSize="medium"  nbInput
