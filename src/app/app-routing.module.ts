@@ -11,7 +11,6 @@ const routes: Routes = [
     data: {
       content: ForShowTable.MAIN
     }
-    // full path?
   },
   {
     path: 'search',

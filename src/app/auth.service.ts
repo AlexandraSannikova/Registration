@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {SignFormComponent} from './sign-form/sign-form.component';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private dialogService: NbDialogService) { }
+  constructor(private dialogService: NbDialogService, private router: Router) { }
 
   private isSignInForm: boolean;
   dialogRef: NbDialogRef<SignFormComponent>;
@@ -22,17 +23,15 @@ export class AuthService {
   }
 
   get getUserName(): string {
-    const name = localStorage.getItem('userName');
-    return name;
+    return localStorage.getItem('userName');
   }
 
-  findIndexOfUser(login: string) {
-    const users = this.getUsers;
-    return users.findIndex(x => x.login === login);
-  }
 
   searchUsers(search: string): any {
     const users = this.getUsers;
+    if (search === '') {
+      return users;
+    }
     return users.filter(x => {
       return x.name === search ||
         x.login === search ||
@@ -66,10 +65,6 @@ export class AuthService {
     this.dialogRef.close();
   }
 
-  isLoginExist(login: string): boolean {
-    return this.getUsers.some(x => x.login === login);
-  }
-
   register(name: string, login: string, email: string, password: string) {
     const users = this.getUsers;
     const newUser = {id: null, name, login, email, pass: password };
@@ -78,26 +73,15 @@ export class AuthService {
       newUser.id = index;
       users[index] = newUser;
     } else {
-      const len = Object.keys(users).length;
-      newUser.id = len;
+      newUser.id = Object.keys(users).length;
       users.push(newUser);
     }
 
     localStorage.setItem('users', JSON.stringify(users));
     localStorage.setItem('isAuth', 'true');
     localStorage.setItem('userName', login);
+
     this.closeForm();
-  }
-
-  findUser(users: any, login: string, pass: string) {
-    return users.find(x => {
-      return x.login === login && x.pass === pass;
-    });
-  }
-
-  logout() {
-    localStorage.removeItem('isAuth');
-    localStorage.removeItem('userName');
   }
 
   login(login: string, password: string ) {
@@ -108,7 +92,29 @@ export class AuthService {
     }
     localStorage.setItem('isAuth', 'true');
     localStorage.setItem('userName', login);
+
     this.closeForm();
   }
 
+  logout() {
+    localStorage.removeItem('isAuth');
+    localStorage.removeItem('userName');
+    this.router.navigate(['/']);
+  }
+
+  findIndexOfUser(login: string) {
+    const users = this.getUsers;
+    return users.findIndex(x => x.login === login);
+  }
+
+
+  findUser(users: any, login: string, pass: string) {
+    return users.find(x => {
+      return x.login === login && x.pass === pass;
+    });
+  }
+
+  isLoginExist(login: string): boolean {
+    return this.getUsers.some(x => x.login === login);
+  }
 }

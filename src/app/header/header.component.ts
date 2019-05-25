@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../auth.service';
-import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-header',

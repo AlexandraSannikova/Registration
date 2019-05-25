@@ -11,6 +11,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class MainComponent implements OnInit {
   search = new FormControl();
+
   constructor(private auth: AuthService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {}
@@ -28,15 +29,20 @@ export class MainComponent implements OnInit {
     }
   }
 
-  get user(): string {
-    return this.auth.getUserName;
-  }
-
   isLoggedUser(user: any): boolean {
-    return  this.user === user.login;
+    return  this.auth.getUserName === user.login;
   }
 
   handleSearch() {
-    this.router.navigate(['search'], {queryParams: {q: this.search.value}});
+    const query = this.search.value;
+    if (query === null) {
+      this.router.navigate(['/']);
+    } else {
+      this.router.navigate(['search'], {queryParams: {q: query}});
+    }
+  }
+
+  showAll() {
+    this.router.navigate(['/']);
   }
 }

@@ -20,16 +20,14 @@ export class SignInFormComponent implements OnInit {
     });
   }
 
-  isControlInvalid(): boolean {
+  isLittlePass(): boolean {
     const isDirty = this.signInForm.controls.pass.dirty;
     const control = this.signInForm.controls.pass;
-    const result = control.invalid && isDirty;
 
-    return result;
+    return control.invalid && isDirty;
   }
 
   onSubmit() {
-    // this.errorAuth = false;
     const {login, pass} = this.signInForm.value;
     try {
       this.authService.login(login, pass);
@@ -41,5 +39,4 @@ export class SignInFormComponent implements OnInit {
   onCancel() {
     this.authService.closeForm();
   }
-
 }

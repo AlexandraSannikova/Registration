@@ -4,6 +4,7 @@
     <div class="search">
       <input (keyup.enter)="handleSearch()" [formControl]="search" class="search" fieldSize="small" nbInput
              placeholder="Поиск" status="info" type="text">
+      <a class="show-all" (click)="showAll()">ShowAll</a>
     </div>
     <table>
       <tr>

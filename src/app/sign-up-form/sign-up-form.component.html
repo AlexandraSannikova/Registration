@@ -5,7 +5,7 @@
            placeholder="Имя">
     <input class="login" formControlName="login" fullWidth status="info" fieldSize="medium" type="text" nbInput
            placeholder="Логин">
-    <div class="error" *ngIf="loginExist">
+    <div class="error" *ngIf="loginExists">
       Такой login уже существует
     </div>
     <input formControlName="email" fullWidth status="info" fieldSize="medium" type="text" nbInput

@@ -8,7 +8,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./sign-up-form.component.less']
 })
 export class SignUpFormComponent implements OnInit {
-  loginExist = false;
+  loginExists = false;
+
   constructor(private fb: FormBuilder, private authService: AuthService) {
   }
 
@@ -56,7 +57,7 @@ export class SignUpFormComponent implements OnInit {
   onSubmit() {
     const {name, login, email, passwords: {pass}} = this.signUpForm.value;
     if (this.authService.isLoginExist(login) && login !== this.authService.getUserName) {
-      this.loginExist = true;
+      this.loginExists = true;
       return;
     }
 
