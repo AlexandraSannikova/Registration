@@ -23,10 +23,11 @@
         Пароли не совпадают
       </div>
     </div>
-    <div class="sign-up-button">
+    <div class="sign-up-buttons">
       <button type="submit" nbButton outline status="info" size="xsmall" [disabled]="!signUpForm.valid">
         Зарегистрироваться
       </button>
+      <button class="cancel" type="button" nbButton outline status="info" size="xsmall" (click)="onCancel()">Cancel</button>
     </div>
   </form>
 </div>

@@ -38,4 +38,8 @@ export class SignInFormComponent implements OnInit {
     }
   }
 
+  onCancel() {
+    this.authService.closeForm();
+  }
+
 }

@@ -48,4 +48,7 @@ export class SignUpFormComponent implements OnInit {
     this.authService.register(name, login, email, pass, doublePass);
   }
 
+  onCancel() {
+    this.authService.closeForm();
+  }
 }

@@ -78,7 +78,7 @@ export class AuthService {
       return x.login === login && x.pass === pass;
     });
   }
-  
+
   logout() {
     localStorage.removeItem('isAuth');
     localStorage.removeItem('userName');

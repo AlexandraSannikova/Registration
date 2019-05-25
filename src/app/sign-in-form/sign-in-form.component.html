@@ -12,8 +12,9 @@
     <div *ngIf="errorAuth">
       Неверный логин/пароль
     </div>
-    <div class="sign-in-button">
+    <div>
       <button type="submit" nbButton outline status="info" size="xsmall" [disabled]="signInForm.invalid">Вход</button>
+      <button class="cancel" type="button" nbButton outline status="info" size="xsmall" (click)="onCancel()">Cancel</button>
     </div>
   </form>
 </div>
