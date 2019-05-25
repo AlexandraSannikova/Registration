@@ -33,7 +33,7 @@ export class MainComponent implements OnInit {
   }
 
   isLoggedUser(user: any): boolean {
-    return  this.user === user.login ;
+    return  this.user === user.login;
   }
 
   handleSearch() {

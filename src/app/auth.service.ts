@@ -26,6 +26,11 @@ export class AuthService {
     return name;
   }
 
+  findIndexOfUser(login: string) {
+    const users = this.getUsers;
+    return users.findIndex(x => x.login === login);
+  }
+
   searchUsers(search: string): any {
     const users = this.getUsers;
     return users.filter(x => {
@@ -61,11 +66,22 @@ export class AuthService {
     this.dialogRef.close();
   }
 
-  register(name: string, login: string, email: string, password: string, confirmPassword: string) {
-    const users = this.getUsers;
-    const len = Object.keys(users).length;
+  isLoginExist(login: string): boolean {
+    return this.getUsers.some(x => x.login === login);
+  }
 
-    users.push({id: len, name, login, email, pass: password});
+  register(name: string, login: string, email: string, password: string) {
+    const users = this.getUsers;
+    const newUser = {id: null, name, login, email, pass: password };
+    if (this.isAuth) {
+      const index = this.findIndexOfUser(this.getUserName);
+      newUser.id = index;
+      users[index] = newUser;
+    } else {
+      const len = Object.keys(users).length;
+      newUser.id = len;
+      users.push(newUser);
+    }
 
     localStorage.setItem('users', JSON.stringify(users));
     localStorage.setItem('isAuth', 'true');
@@ -94,6 +110,5 @@ export class AuthService {
     localStorage.setItem('userName', login);
     this.closeForm();
   }
-
 
 }

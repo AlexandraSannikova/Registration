@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../auth.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
@@ -8,8 +8,10 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./sign-up-form.component.less']
 })
 export class SignUpFormComponent implements OnInit {
+  loginExist = false;
+  constructor(private fb: FormBuilder, private authService: AuthService) {
+  }
 
-  constructor(private fb: FormBuilder, private authService: AuthService) { }
   signUpForm: FormGroup;
 
   static confirmPass(group: FormGroup) {
@@ -17,6 +19,14 @@ export class SignUpFormComponent implements OnInit {
       return null;
     }
     return {confirmPass: 'Passwords are different'};
+  }
+
+  get headline(): string {
+    return this.authService.isAuth ? 'Редактирование' : 'Регистрация';
+  }
+
+  get agreeButton(): string {
+    return this.authService.isAuth ? 'Сохранить' : 'Зарегистрироваться';
   }
 
   ngOnInit() {
@@ -34,7 +44,7 @@ export class SignUpFormComponent implements OnInit {
   hasConfirmPassError() {
     const isDirty = this.signUpForm.controls.passwords.dirty;
     const hasError = this.signUpForm.controls.passwords.hasError('confirmPass');
-    return  isDirty && hasError;
+    return isDirty && hasError;
   }
 
   hasMailError() {
@@ -44,8 +54,13 @@ export class SignUpFormComponent implements OnInit {
   }
 
   onSubmit() {
-    const {name, login, email, passwords: {pass, doublePass}} = this.signUpForm.value;
-    this.authService.register(name, login, email, pass, doublePass);
+    const {name, login, email, passwords: {pass}} = this.signUpForm.value;
+    if (this.authService.isLoginExist(login) && login !== this.authService.getUserName) {
+      this.loginExist = true;
+      return;
+    }
+
+    this.authService.register(name, login, email, pass);
   }
 
   onCancel() {
