@@ -5,11 +5,8 @@
            placeholder="Логин">
     <input class="pass" formControlName="pass" status="info" fullWidth fieldSize="medium" type="password" nbInput
            placeholder="Пароль">
-    <div class="error" *ngIf="isLittlePass()">
-      Пароль минимум 5 символов
-      <br>
-    </div>
-    <div *ngIf="errorAuth">
+
+    <div class="error" *ngIf="errorAuth">
       Неверный логин/пароль
     </div>
     <div>

@@ -58,10 +58,9 @@ export class SignUpFormComponent implements OnInit {
     const {name, login, email, passwords: {pass}} = this.signUpForm.value;
     if (this.authService.isLoginExist(login) && login !== this.authService.getUserName) {
       this.loginExists = true;
-      return;
+    } else {
+      this.authService.register(name, login, email, pass);
     }
-
-    this.authService.register(name, login, email, pass);
   }
 
   onCancel() {

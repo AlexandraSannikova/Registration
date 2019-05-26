@@ -15,16 +15,9 @@ export class SignInFormComponent implements OnInit {
 
   ngOnInit() {
     this.signInForm = this.fb.group({
-      login: ['', [Validators.required]],
-      pass: ['', [Validators.required, Validators.minLength(5)]]
+      login: ['', Validators.required],
+      pass: ['', Validators.required]
     });
-  }
-
-  isLittlePass(): boolean {
-    const isDirty = this.signInForm.controls.pass.dirty;
-    const control = this.signInForm.controls.pass;
-
-    return control.invalid && isDirty;
   }
 
   onSubmit() {
