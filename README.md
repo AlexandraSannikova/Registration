@@ -1,27 +1,26 @@
-# Registration
+#Результаты
+Была выполнена **задача 2**.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.9.
+**Чистое время на выполнение задачи**: примерно 12-15 часов
 
-## Development server
+**Изучение технологий**: около 2 часов в сумме, так как почти со всем использованным функционалом ранее сталкивалась; в основном нужно было вспомнить и применить.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+**Трудности** (скорее то, над чем пришлось больше всего подумать): 
+1. Документация использованного [nebular](https://akveo.github.io/nebular/) местами неполная; для того, чтобы переключить формы регистрации и входа пришлось создавать специальный компонент switcher.
 
-## Code scaffolding
+2. Поиск. В итоге решила сделать его за счет навигации "с query запросом". 
+При выходе и обратном входе поиск не обнулялся. Проблему решила с помощью navigate у Router. То же обнуление сделала при нажатии кнопки showAll, а также enter в поле поиска.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+3. Добавление формы для редактирования, схожей с регистрацией. Вначале хотела сделать общий компонент с входным параметром в зависимости от того, регистрация или редактирование. В итоге решила сделать логику в самом компоненте регистрации (`SignUpFormComponent`), так как формочки открываются с помощью вызова, а не тега в html. Учитывая, что тут всего две похожие формы, посчитала, что так удобнее (и проще, когда для форм используется nebular).
 
-## Build
+3. Архитектура сервисов. Хотела поделить сервис (`AuthService`) на два: для регистрации/авторизации и для логики с таблицей. В итоге решила так не делать, т.к. при регистрации меняется таблица и приложение небольшое. Также можно было сделать отдельный сервис для работы с открытием/закрытием форм.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+# Запуск приложения
 
-## Running unit tests
+Проект был сгенерирован с помощью [Angular CLI](https://github.com/angular/angular-cli) версии 7.3.9.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+`npm install` - для установки зависимостей
 
-## Running end-to-end tests
+`ng serve` - для запуска сервера
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+`http://localhost:4200/` - открыть для просмотра
